@@ -22,6 +22,6 @@ int main()
     for(int &b : B) {
         cout<<b<<" ";
     }
-    system("pause");
+//     system("pause");
     return 0;
 }
