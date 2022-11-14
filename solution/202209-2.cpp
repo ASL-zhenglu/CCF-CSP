@@ -10,7 +10,7 @@ void read(Tp &x) {
 	while(ch >= '0' && ch <= '9') x = x * 10 + ch - '0', ch = getchar();
 	x *= fh;
 }
-//学到一个处理输出的方法，快乐
+//学到一个处理输入的方法，快乐
 const int maxn = 30 + 5;
 int n , m, sum;
 int dp[500000];
