@@ -1,14 +1,21 @@
-https://leetcode.cn/problems/remove-sub-folders-from-the-filesystem/solution/shan-chu-zi-wen-jian-jia-by-leetcode-sol-0x8d/
+## debug
 
-debug
 1. error: type 'vector<int>' does not provide a call operator
-样例：
- min[o] = std::min(min[o * 2], min[o * 2 + 1]);
-原因：
-就是min跟他c++中的min重名了，所以要加std::来区分
-2. 运行错误可能是边界没处理（有分数）, 指针越界等等
-3. map有时候要先判断是否存在，不然可能会直接创建
 
+样例：
+
+ min[o] = std::min(min[o * 2], min[o * 2 + 1]);
+
+原因：
+
+就是min跟他c++中的min重名了，所以要加std::来区分
+
+1. 运行错误可能是边界没处理（有分数）, 指针越界等等
+2. 
+
+
+
+```cpp
 class Graph {
 public:
 	struct Pair {   // <=> pair<int, int> 
@@ -43,8 +50,13 @@ public:
  * obj->addEdge(edge);
  * int param_2 = obj->shortestPath(node1,node2);
  */
+```
+
+
 
 初始化为大于10e9 的常数
+
+```cpp
 # include<bits/stdc++.h>
 
 using namespace std;
@@ -58,18 +70,27 @@ int main() {
  		cout<<x<<endl;
 	}
 } 
+```
 
-二分查找
+## 二分查找
+
 int idx = lower_bound(a, a+n, x) - a
+
 // 找第一个大于等于x的下标，在a数组中，其中a为静态数组， 第一个大于用upper_bound
+
 而对于vector使用就是
+
+```cpp
 int main() {
   	vector<int> a = {1, 2, 3, 4, 5};
 	auto idx = lower_bound(a.begin(), a.end(), 4)-a;
 	cout<<*idx<<endl; 
 } 
+```
 
 逆序：
+
+```cpp
 # include<bits/stdc++.h>
 
 using namespace std;
@@ -84,9 +105,13 @@ int main() {
 		cout<<x<<" ";
 	} 
 } 
+```
 
 
-结构体
+
+## 结构体
+
+```cpp
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -139,8 +164,11 @@ int main() {
     }
     return 0;
 }
+```
 
-堆
+## 堆
+
+```cpp
 priority_queue<int, vector<int>, greater<int> >qi2;//最小堆
 priority_queue<int, vector<int>, less<int> >qi2;//最大堆
 #include <bits/stdc++.h>
@@ -151,11 +179,12 @@ const int lnf = INT_MAX/2;
 
 struct Pair {
     int to, cost;
-	
 };
-bool operator>(Pair a, Pair b) { // 小根堆这里是>,大根堆是<
-    return a.cost < b.cost;
+
+bool operator>(Pair a, Pair b){ // 小根堆这里是>,大根堆是<
+	return a.cost < b.cost;
 }
+
 int main() {
     int n, m, start;
     scanf("%d%d%d", &n, &m, &start);
@@ -193,9 +222,13 @@ int main() {
 
     return 0;
 }
+```
+
 
 
 auto
+
+```cpp
 class Solution {
 public:
     vector<string> sortPeople(vector<string>& names, vector<int>& heights) {
@@ -212,19 +245,35 @@ public:
         return ans;
     }
 };
+```
+
+
 
 排序去重：
+
+```cpp
 sort(xs.begin(), xs.end());
 xs.erase(unique(xs.begin(), xs.end()), xs.end());
 sort(ys.begin(), ys.end());
 ys.erase(unique(ys.begin(), ys.end()), ys.end());
+```
 
-long long 
+
+
+## long long 
+
+```cpp
 #define ll long long
 typedef long long ll
+```
 
-图论
+
+
+## 图论
+
 方向：
+
+```cpp
 #include<bits/stdc++.h>
 #define ll long long
 
@@ -238,9 +287,11 @@ int main() {
 	cout<<x<<endl;
 	return 0;
 }
+```
 
+[LCP 75.传送卷轴](https://leetcode.cn/problems/rdmXM7/)
 
-LCP 75.传送卷轴
+```cpp
 class Solution {
 	const int INF = 0x3f3f3f3f;
 	static constexpr int dirs[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -321,46 +372,15 @@ public:
 		return left;
     }	
 };
-Floyd
-class Graph {
-    vector<vector<int>> d;
-public:
-    Graph(int n, vector<vector<int>> &edges) {
-        // 邻接矩阵（初始化为无穷大，表示 i 到 j 没有边）
-        d = vector<vector<int>>(n, vector<int>(n, INT_MAX / 3));
-        for (int i = 0; i < n; ++i)
-            d[i][i] = 0;
-        for (auto &e: edges)
-            d[e[0]][e[1]] = e[2]; // 添加一条边（输入保证没有重边和自环）
-        for (int k = 0; k < n; ++k)
-            for (int i = 0; i < n; ++i)
-                for (int j = 0; j < n; ++j)
-                    d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
-    }
+```
 
-    void addEdge(vector<int> e) {
-        int x = e[0], y = e[1], w = e[2], n = d.size();
-        if (w >= d[x][y]) // 无需更新
-            return;
-        for (int i = 0; i < n; ++i)
-            for (int j = 0; j < n; ++j)
-                d[i][j] = min(d[i][j], d[i][x] + w + d[y][j]);
-    }
 
-    int shortestPath(int start, int end) {
-        int ans = d[start][end];
-        return ans < INT_MAX / 3 ? ans : -1;
-    }
-};
 
-随便学的
-typedef unsigned long long ll;
-题目条理比较清晰，对于这种第五题，我们在考试时尽可能拿更多的分（第5题拿满分我不敢奢望hhhh），在此只提出一些应该注意的小细节
-数据类型采用unsigned long long数据范围比long long更大，如果只采用long long 最后只有70分
-多次采用取模运算，在操作2乘法计算完后，进行取模操作，否则只有20分
-在操作4后，求得指定区间内的坐标和后，进行取模运算
-在计算平方和时：1.计算完单一坐标的平方后取模，2.计算完所有的坐标的平方和后取模
+## 随便学的
+
 快读：
+
+```cpp
 template <typename Tp>
 void read(Tp &x) {
 	x = 0; int fh = 1; char ch = 1;
@@ -372,8 +392,13 @@ void read(Tp &x) {
 
 ios::sync_with_stdio(false);
 cin.tie(nullptr);
+```
+
 读入问题：
+
 读入1 1 A
+
+```cpp
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -385,21 +410,35 @@ int main() {
     cout << x << " " << y << " " << ch << endl;
     return 0;
 }
+```
 
 
+
+
+
+```cpp
 正向查找find()
 
 s.find(str)
 string中find()返回值是字母在母串中的第一次出现的下标位置。如果没有找到，那么会返回-1。
 s.find(str, pos)
 find(str,pos)是用来寻找从pos开始**(包括pos处字符)**匹配str的位置。
+```
 
 
+
+
+
+```cpp
 // 两个数组的交集
 set_intersection(a.begin(), a.end(), b.begin(), b.end(), back_inserter(res));
 // 两个数组的并集
 set_union(a.begin(), a.end(), b.begin(), b.end(), back_inserter(res));
+```
 
+
+
+```cpp
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -497,7 +536,11 @@ int main() {
 	}
 	return 0;
 }
+```
 
+
+
+```cpp
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -553,86 +596,11 @@ int main() {
 	cout<<ans<<endl;
 	return 0;
 }
+```
+
 set
-#include <bits/stdc++.h>
-using namespace std;
 
-int main() {
-	set<int> st;
-	st.insert(10);
-	st.insert(20);
-	st.insert(30);
-	cout<<*st.begin()<<endl;  //取第一个值，取最后一个用*st.rend();
-    return 0;
-}
-// it = st.begin()是第一个元素，从第二个元素开始遍历，就让it++即可
-施肥：
-#include<bits/stdc++.h>
-
-using namespace std;
-
-template <typename Tp>
-void read(Tp &x) {
-	x = 0;
-	int fh = 1;
-	char ch = 1;
-	while(ch != '-' && (ch < '0' || ch > '9')) ch = getchar();
-	if(ch == '-') fh = -1, ch = getchar();
-	while(ch >= '0' && ch <= '9') x = x * 10 + ch - '0', ch = getchar();
-	x *= fh;
-}
-typedef long long ll;
-ll n, m, l, r;
-struct Pair { //自定义要重载，使用使用set嵌套pair不要自定义
-    ll l, r;
-
-    bool operator<(const Pair& other) const {
-        if (l != other.l)
-            return l < other.l;
-        return r < other.r;
-    }
-};
-set<Pair> a;
-
-bool check(ll L, ll R) {
-	vector<int> diff(R+2);
-	for (auto &p : a) {
-		ll l1 = p.l, r1 = p.r;
-		if (L <= l1 && r1 <= R) {
-			diff[l1]++;
-			diff[r1+1]--;
-		}
-	}
-	for (int i = L; i <= R; i++) {
-		diff[i] += diff[i-1];
-		if (diff[i] == 0) {
-			return false;
-		}
-	}
-	return true;
-}
-
-
-int main() {
-//	ios::sync_with_stdio(false);
-//	cin.tie(nullptr);
-	read(n);
-	read(m);
-	for(ll i = 0; i < m; i++) {
-		read(l);read(r);
-		a.insert({l, r});
-	}
-	ll ans = 0;
-	for (ll l = 1; l < n; l++) {
-		for (ll r = l+1; r <= n; r++) {
-			if (check(l, r)) {
-				ans++;
-			}
-		}
-	}
-	cout<<ans<<endl;
-	return 0;
-}
+```cpp
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -700,10 +668,162 @@ int main() {
 -3 0 2
 -3 1 1
 */
+```
+
+
 
 pi : acos(-1)
 
-脉冲：vector<int> g[1001] 是一个包含 1001 个元素的数组，每个元素的类型是vector<int>
+
+
+```cpp
+#include<bits/stdc++.h>
+
+using namespace std;
+typedef long long ll;
+int a[8][8]; // 原矩阵
+int M[8][8]; // 扫描矩阵
+int n, T;
+int b[65]; //扫描原数组
+int M1[8][8];
+double pi = acos(-1);
+struct Pair {
+	int x, y;
+};
+
+Pair next(int i, int j) {
+	if (i == 0) {
+		if (j%2==0) {
+			return {i, j+1}; //->
+		} else {
+			return {i+1, j-1};
+		}
+	} else if (i == 7) {
+		if (j%2==0) {
+			return {i, j+1};
+		} else {
+			return {i-1, j+1};
+		}
+	} else { //讨论j
+		if (j == 0) {
+			if (i%2==1) { //向下
+				return {i+1, j};
+			} else {
+				return {i-1, j+1};
+			}
+		} else if (j == 7) {
+			if (i%2==1) { //向下
+				return {i+1, j};
+			} else {
+				return {i+1, j-1};
+			}
+		} else { //处于中间
+			if ((i+j)%2==0) { //向右上角走
+				return {i-1,j+1};
+			} else {
+				return {i+1, j-1};
+			}
+		}
+	}
+}
+
+double A(int x) {
+	if (x == 0) {
+		return sqrt(0.5);
+	} else {
+		return 1.0;
+	}
+}
+
+int calculate(int i, int j) {
+	double res = 0;
+	for (int u = 0; u < 8; u++) {
+		for (int v = 0; v < 8; v++) {
+			
+			res += (double)A(u)*A(v)*M[u][v]*cos((pi/8.0)*u*(i+0.5))*cos((pi/8.0)*u*(j+0.5));
+//			cout<<M[u][v]<<" ";
+		}
+//		cout<<endl;
+	}
+	res /= 4.0;
+//	cout<<res<<endl;
+	res += 128;
+	int ans = (int)(res+0.5);
+	if (ans > 255) {
+		return 255;
+	} else if (ans < 0) {
+		return 0;
+	}
+	return ans;
+}
+
+int main() {
+//	cout<<pi<<endl;
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			scanf("%d", &a[i][j]);
+		}
+	}
+	scanf("%d", &n);
+	scanf("%d", &T);
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &b[i]);
+	}
+	int x = 0, y = 0;
+	M[0][0] = b[0];
+	for (int k = 1; k < n; k++) {
+		Pair p = next(x, y);
+//		cout<<p.x<<" "<<p.y<<endl;
+		M[p.x][p.y] = b[k];
+		x = p.x;
+		y = p.y;
+	}
+	if (T == 0) {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				cout<<M[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+	} else if (T == 1) { // 相乘
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				M[i][j] *= a[i][j];
+			}
+		}
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				cout<<M[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+	} else if (T == 2) {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				M[i][j] *= a[i][j];
+			}
+		}
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				M1[i][j] = calculate(i, j);
+			}
+		}
+//		cout<<calculate(0, 0)<<endl;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				cout<<M1[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+	}
+
+	return 0;
+}
+```
+
+脉冲：**vector<int> g[1001]** 是一个包含 1001 个元素的数组，每个元素的类型是vector<int>
+
+```cpp
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -821,9 +941,29 @@ int main() {
     printf("%.3lf %.3lf\n%d %d\n",v_min,v_max,f_min,f_max);
 	return 0;
 }
+```
 
 分割字符串
 
+```cpp
+vector<string> split(const string &str, const char pattern)
+{
+    vector<string> res;
+    stringstream input(str);   //读取str到字符串流中
+    string temp;
+    //使用getline函数从字符串流中读取,遇到分隔符时停止,和从cin中读取类似
+    //注意,getline默认是可以读取空格的
+    while(getline(input, temp, pattern))
+    {
+        res.push_back(temp);
+    }
+    return res;
+}
+```
+
+分割字符串
+
+```cpp
 vector<string> split(const string& s, string c = " ") {
     vector<string> ans;
     for (gg i = 0, j = 0; i < s.size(); i = j + 1) {
@@ -835,7 +975,11 @@ vector<string> split(const string& s, string c = " ") {
     }
     return ans;
 }
+```
+
 字符串转字符
+
+```cpp
 #include <iostream>
 #include <string>
 
@@ -845,11 +989,20 @@ int main() {
     std::cout << charArray << std::endl;
     return 0;
 }
+```
+
 数字/字母
+
+```cpp
 isalpha()
 isisdigit('1') 
+```
+
 map
+
 erase
+
+```cpp
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -877,9 +1030,15 @@ int main() {
 	}
 	return 0;
 }
-● unqiue必须是前面的n项，因为后面没有删除只是覆盖了，除非你用erase
+```
 
-建树
+- unqiue必须是前面的n项，因为后面没有删除只是覆盖了，除非你用erase
+
+
+
+## 建树
+
+```cpp
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -1013,8 +1172,13 @@ int main() {
     }
 	return 0;
 }
+```
 
 
+
+拓扑排序
+
+```cpp
 // 1.检测环路50
 // 2.模拟逻辑50 
 #include<bits/stdc++.h>
@@ -1150,99 +1314,4 @@ int main() {
 	} 
 	return 0;
 }
-
-合并两个有序数组O(n)
-// 合并两个有序数组O(n)
-void merge(vector<int>& dest, vector<int>& v)
-{
-	vector<int> v3(dest.size() + v.size());
-	if (dest.empty()) dest = v;
-	else {
-		int p1 = 0, p2 = 0, i = 0;
-		while (p1 != dest.size() && p2 != v.size()) {
-			if (dest[p1] < v[p2]) v3[i++] = dest[p1++];
-			else v3[i++] = v[p2++];
-		}
-		if (p1 == dest.size()) {
-			while(p2 != v.size())
-				v3[i++] = v[p2++];
-		}
-		else{
-			while (p1 != dest.size())
-				v3[i++] = dest[p1++];
-		}
-	}
-	dest = v3;
-}
-递归
-求后代
-#include<bits/stdc++.h>
-
-using namespace std;
-typedef long long ll;
-const ll MAX = 3e5+5;
-ll n;
-vector<ll> p[MAX];
-ll a[MAX];
-vector<ll> suf[MAX]; // 后代 
-
-vector<ll> find(ll x) { //递归
-	vector<ll> res;
-	res.push_back(x);
-	if (p[x].size() == 0) {
-		return res;
-	}
-	vector<ll> &t = p[x];
-	vector<vector<ll>> s;
-	for (ll i = 0; i < t.size(); i++) {
-		s.push_back(find(t[i]));
-	} 
-	for (ll i = 0; i < s.size(); i++) {
-		for (ll j = 0; j < s[i].size(); j++) {
-			res.push_back(s[i][j]);
-		}
-	}
-	suf[x] = res;
-	return res;
-}
-
-ll cal(vector<ll> &v) {
-	ll ans = 0;
-	vector<ll> s;
-	for (auto &x : v) {
-		s.push_back(a[x]);
-	}
-	if (s.size() == 1) {
-		return 0;
-	}
-	sort(s.begin(), s.end());
-	
-	for (int i = 0; i < s.size(); i++) {
-		ll tmp = 1e18;
-       	if(i+1>=0&&i+1<s.size())
-       	tmp=min((s[i+1]-s[i])*(s[i+1]-s[i]),tmp);
-       	if(i-1>=0&&i-1<s.size())
-       	tmp=min((s[i-1]-s[i])*(s[i-1]-s[i]),tmp);
-       	ans+=tmp;
-	} 
-	return ans;
-}
-
-int main() {
-	ios::sync_with_stdio(false);
-	cin.tie(nullptr);
-	cin>>n;
-	for (ll i = 2; i <= n; i++) {
-		ll x;
-		cin>>x;
-		p[x].push_back(i);
-	}
-	for (ll i = 1; i <= n; i++) {
-		cin>>a[i];
-	}
-	find(1);
-	for (int i = 1; i <= n; i++) {
-		cout<<cal(suf[i])<<"\n";
-	}
-	return 0;
-}
+```
